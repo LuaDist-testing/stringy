@@ -1,23 +1,24 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "stringy"
-version = "0.2-1"
+version = "0.4-1"
 -- LuaDist source
 source = {
-  tag = "0.2-1",
+  tag = "0.4-1",
   url = "git://github.com/LuaDist-testing/stringy.git"
 }
 -- Original source
 -- source = {
---    url = "http://bpbio.googlecode.com/files/stringy-0.2.tar.gz" 
+--    url = "https://github.com/brentp/lua-stringy/archive/v0.4-1.tar.gz",
+--    dir = "lua-stringy-0.4-1"
 -- }
 description = {
    summary = "C extension for fast string methods",
    detailed = [[
-    Includes fast methods for endswith, startswith, split and strip.  
-    Implementations of split and strip from the wiki and book. This 
-    was implemented as a learning exercise. Additions are welcome if
-    the library is kept simple. Usage is:
+    Includes fast methods for endswith, startswith, split, strip, find
+    and count.  Implementations of split and strip from the wiki and book. 
+    Implementation of find and count use python's fastsearch.
+    Usage is:
 
     > require "stringy" 
     > = stringy.strip(" asdf ")
@@ -31,7 +32,7 @@ description = {
     > = stringy.endswith("asdf", "as")
     false
    ]],
-   homepage = "http://hackmap.blogspot.com",
+   homepage = "github.com/brentp/lua-stringy",
    license = "MIT/X11" 
 }
 dependencies = {
@@ -40,6 +41,8 @@ dependencies = {
 build = {
     type = "builtin",
     modules = {
-       stringy = "stringy.c" 
-    }
+       stringy = {
+          sources = {"stringy/stringy.c"},
+     }
+  }
 }

@@ -1,4 +1,4 @@
-require "stringy"
+stringy = require "stringy"
 
 ---------
 -- split
@@ -51,3 +51,47 @@ assert(not stringy.endswith("asdf", "\0"))
 assert(not stringy.endswith("asdf", "asd"))
 assert(not stringy.endswith("asdf", "a"))
 assert(not stringy.endswith("a\0df", "a\0s"))
+
+-------
+--count
+-------
+
+assert(stringy.count("aaa", "a") == 3)
+-- counts non-overlapping!
+assert(stringy.count("aaa", "aa") == 1)
+assert(stringy.count("aaa", "") == 0)
+assert(stringy.count("aaa", "b") == 0)
+assert(stringy.count("a\0a", "\0") == 1)
+
+assert(stringy.count("aaa", "aaa") == 1)
+assert(stringy.count("aaa", "aaaa") == 0)
+assert(stringy.count("", "aaaa") == 0)
+
+-- start arg.
+-- index at 2, leaves "aaa"
+assert(stringy.count("aaaa", "a", 2) == 3)
+-- index at 1, leaves "aaa"
+assert(stringy.count("aaaa", "a", 1) == 4)
+
+-- index at 2, leaves "aaa" then only take to 3
+assert(stringy.count("aaaa", "a", 2, 3) == 1)
+-- start at 2 from end.
+assert(stringy.count("aaaa", "a", -2) == 2)
+assert(stringy.count("bbaa", "a", -2, -1) == 1)
+assert(stringy.count("bbba", "a", -1) == 1)
+
+--------
+-- find
+-------
+assert(stringy.find("baaaa", "a") == 2)
+
+assert(stringy.find("baaaa", "baaaa") == 1)
+assert(stringy.find("baaaa", "baaaa", 1) == 1)
+
+assert(stringy.find("baaaa", "baaaa", 2) == nil)
+
+assert(stringy.find("abcdef", "b", 3) == nil)
+
+assert(stringy.find("abcdef", "c", 3) == 3)
+assert(stringy.find("abcdef", "c", 4) == nil)
+assert(stringy.find("abcdef", "c", -1) == nil)
